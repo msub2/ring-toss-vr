@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="lib/simple-sun-sky.js"></script>
+  <script src="lib/controls.js"></script>
+  <script src="rapier.js" type="module"></script>
+  <script src="components.js"></script>
+  <title>Ring Toss</title>
+</head>
+<body>
+  <a-scene rapier="debug: false">
+    <a-assets>
+      <audio id="bgmFile" src="res/audio/Carnivale Intrigue.mp3"></audio>
+      <audio id="scoredFile" src="res/audio/success.mp3"></audio>
+      <a-mixin id="peg" geometry="primitive: cylinder; radius: .025; height: .5; segmentsRadial: 18; segmentsHeight: 9" rapier-body="shape: trimesh; type: fixed" material="color: #c69874"></a-mixin>
+      <a-mixin id="pegCollider" geometry="primitive: box; width: .1; height: .1; depth: .1" material="opacity: 0" rapier-body="shape: cuboid; isTrigger: true; type: fixed"></a-mixin>
+    </a-assets>
+
+    <!-- Environment -->
+    <a-simple-sun-sky sun-position="0 1 1"></a-simple-sun-sky>
+    <a-entity light="type: ambient; color: #BBB; intensity: .5"></a-entity>
+    <a-entity light="type: directional; color: #FFF; intensity: 1; castShadow: true; shadowBias: -.001; shadowCameraBottom: -16; shadowCameraLeft: -24; shadowCameraRight: 24; shadowCameraTop: 16" position="0 50 50"></a-entity>
+    <a-plane rapier-body="shape: cuboid; type: fixed" pbr="path: park_dirt; repeat: 32" width="100" height="100" rotation="-90 0 0"></a-plane>
+    <a-gltf-model src="res/models/circus_tent.glb" position="-20 0 -40" rotation="0 225 0" scale=".01 .01 .01"></a-gltf-model>
+    <a-gltf-model src="res/models/circus_tent.glb" position="20 0 -40" rotation="0 135 0" scale=".01 .01 .01"></a-gltf-model>
+
+    <!-- Ring Toss Box -->
+    <a-box rapier-body="shape: cuboid; type: fixed" position="0 0 -2" width="2" height=".5" depth=".4" pbr="path: plywood; repeat: 2"></a-box>
+    <a-entity id="peg1" mixin="peg" position="-.8 .5 -2" score-increaser="peg: 1"></a-entity>
+    <a-entity id="peg1Left"  mixin="pegCollider" position="-.9 .25 -2"></a-entity>
+    <a-entity id="peg1Right" mixin="pegCollider" position="-.7 .25 -2"></a-entity>
+    <a-entity id="peg2" mixin="peg" position="-.4 .5 -2"></a-entity>
+    <a-entity id="peg2Left"  mixin="pegCollider" position="-.5 .25 -2"></a-entity>
+    <a-entity id="peg2Right" mixin="pegCollider" position="-.3 .25 -2"></a-entity>
+    <a-entity id="peg3" mixin="peg" position="0 .5 -2"></a-entity>
+    <a-entity id="peg3Left"  mixin="pegCollider" position="-.1 .25 -2"></a-entity>
+    <a-entity id="peg3Right" mixin="pegCollider" position=".1 .25 -2"></a-entity>
+    <a-entity id="peg4" mixin="peg" position=".4 .5 -2"></a-entity>
+    <a-entity id="peg4Left"  mixin="pegCollider" position=".3 .25 -2"></a-entity>
+    <a-entity id="peg4Right" mixin="pegCollider" position=".5 .25 -2"></a-entity>
+    <a-entity id="peg5" mixin="peg" position=".8 .5 -2"></a-entity>
+    <a-entity id="peg5Left"  mixin="pegCollider" position=".7 .25 -2"></a-entity>
+    <a-entity id="peg5Right" mixin="pegCollider" position=".9 .25 -2"></a-entity>
+
+    <a-box rapier-body="shape: cuboid; type: fixed" position="0 .5 -2.5" width="2" height=".5" depth=".4" pbr="path: plywood; repeat: 2"></a-box>
+    <a-entity id="peg6" mixin="peg" position="-.8 1 -2.5"></a-entity>
+    <a-entity id="peg6Left"  mixin="pegCollider" position="-.9 .75 -2.5"></a-entity>
+    <a-entity id="peg6Right" mixin="pegCollider" position="-.7 .75 -2.5"></a-entity>
+    <a-entity id="peg7" mixin="peg" position="-.4 1 -2.5"></a-entity>
+    <a-entity id="peg7Left"  mixin="pegCollider" position="-.5 .75 -2.5"></a-entity>
+    <a-entity id="peg7Right" mixin="pegCollider" position="-.3 .75 -2.5"></a-entity>
+    <a-entity id="peg8" mixin="peg" position="0 1 -2.5"></a-entity>
+    <a-entity id="peg8Left"  mixin="pegCollider" position="-.1 .75 -2.5"></a-entity>
+    <a-entity id="peg8Right" mixin="pegCollider" position=".1 .75 -2.5"></a-entity>
+    <a-entity id="peg9" mixin="peg" position=".4 1 -2.5"></a-entity>
+    <a-entity id="peg9Left"  mixin="pegCollider" position=".3 .75 -2.5"></a-entity>
+    <a-entity id="peg9Right" mixin="pegCollider" position=".5 .75 -2.5"></a-entity>
+    <a-entity id="peg10" mixin="peg" position=".8 1 -2.5"></a-entity>
+    <a-entity id="peg10Left"  mixin="pegCollider" position=".7 .75 -2.5"></a-entity>
+    <a-entity id="peg10Right" mixin="pegCollider" position=".9 .75 -2.5"></a-entity>
+
+    <a-box rapier-body="shape: cuboid; type: fixed" position="0 1 -3" width="2" height=".5" depth=".4" pbr="path: plywood; repeat: 2"></a-box>
+    <a-entity id="peg11" mixin="peg" position="-.8 1.5 -3"></a-entity>
+    <a-entity id="peg11Left"  mixin="pegCollider" position="-.9 1.25 -3"></a-entity>
+    <a-entity id="peg11Right" mixin="pegCollider" position="-.7 1.25 -3"></a-entity>
+    <a-entity id="peg12" mixin="peg" position="-.4 1.5 -3"></a-entity>
+    <a-entity id="peg12Left"  mixin="pegCollider" position="-.5 1.25 -3"></a-entity>
+    <a-entity id="peg12Right" mixin="pegCollider" position="-.3 1.25 -3"></a-entity>
+    <a-entity id="peg13" mixin="peg" position="0 1.5 -3"></a-entity>
+    <a-entity id="peg13Left"  mixin="pegCollider" position="-.1 1.25 -3"></a-entity>
+    <a-entity id="peg13Right" mixin="pegCollider" position=".1 1.25 -3"></a-entity>
+    <a-entity id="peg14" mixin="peg" position=".4 1.5 -3"></a-entity>
+    <a-entity id="peg14Left"  mixin="pegCollider" position=".3 1.25 -3"></a-entity>
+    <a-entity id="peg14Right" mixin="pegCollider" position=".5 1.25 -3"></a-entity>
+    <a-entity id="peg15" mixin="peg" position=".8 1.5 -3"></a-entity>
+    <a-entity id="peg15Left"  mixin="pegCollider" position=".7 1.25 -3"></a-entity>
+    <a-entity id="peg15Right" mixin="pegCollider" position=".9 1.25 -3"></a-entity>
+
+    <!-- Ring Table -->
+    <a-box rapier-body="shape: cuboid; type: fixed" position="1 0.5 0" pbr="path: plywood; repeat: 4"></a-box>
+    <a-torus rapier-body="shape: trimesh; type: dynamic" color="#43A367" radius=".1" radius-tubular="0.01" segments-radial="9" segments-tubular="8" position="1 1.5 0" rotation="90 0 0" grabbable></a-torus>
+    <!-- <a-torus rapier-body="shape: trimesh; type: dynamic" color="#43A367" radius=".1" radius-tubular="0.01" segments-radial="9" segments-tubular="8" position="-.8 2.5 -2" rotation="90 0 0" grabbable></a-torus> -->
+
+    <!-- Controllers + Colliders -->
+    <a-entity id="leftHand" oculus-touch-controls="hand: left" vive-controls="hand: left" vive-focus-controls="hand: left" windows-motion-controls="hand: left"></a-entity>
+    <a-entity id="rightHand" oculus-touch-controls="hand: right" vive-controls="hand: right" vive-focus-controls="hand: right" windows-motion-controls="hand: right"></a-entity>
+    <a-sphere id="leftCollider" material="opacity: 0" grab="listenFor: collision" rapier-body="shape: ball; isTrigger: true; type: kinematicPosition" radius="0.05" tracked-controls="hand: left; space: targetRaySpace"></a-sphere>
+    <a-sphere id="rightCollider" material="opacity: 0" grab="listenFor: collision" rapier-body="shape: ball; isTrigger: true; type: kinematicPosition" radius="0.05" tracked-controls="hand: right; space: targetRaySpace"></a-sphere>
+
+    <!-- Audio -->
+    <a-sound id="bgm" src="#bgmFile" autoplay="false" loop="true" delayed-start sound="positional: false" volume=".75"></a-sound>
+    <a-sound id="scored" src="#scoredFile"></a-sound>
+
+    <!-- Score -->
+    <a-text id="score" value="Score: 0" position="0 3 -3" score></a-text>
+  </a-scene>
+</body>
+</html>
